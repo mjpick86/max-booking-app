@@ -9,8 +9,7 @@ squareButton.addEventListener('click', async () => {
         return;
     }
 
-    resultNumber.textContent = number;
-    const response = await fetch('http://localhost:8000/square', {
+    const response = await fetch('https://max-booking-app.onrender.com/square', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
