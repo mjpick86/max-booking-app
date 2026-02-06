@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     "http://127.0.0.1:5500",
-    "https://mjpick86-gif.github.io/max-booking-app/",
+    "https://mjpick86.github.io/max-booking-app/",
 ]
 
 class Num(BaseModel):
