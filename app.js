@@ -8,7 +8,7 @@ squareButton.addEventListener('click', async () => {
     if (!number) {
         return;
     }
-
+    resultNumber.textContent = 'Calculating...';
     const response = await fetch('https://max-booking-app.onrender.com/square', {
         method: 'POST',
         headers: {
