@@ -10,16 +10,16 @@ squareButton.addEventListener('click', async () => {
         return;
     }
     resultNumber.textContent = `Calculating...`;
-    //await fetch('https://max-booking-app.onrender.com/square', {
-        //method: 'POST',
-        //headers: {
-            //"Content-Type": "application/json",
-        //},
-        //body: JSON.stringify({number: parseInt(number)}),
-    //});
+    await fetch('http://localhost:8000/square', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({number: parseInt(number)}),
+    });
 
-    const response = await fetch('http://localhost:8000/db_test');
+    const response = await fetch('http://localhost:8000/last_squares');
     const data = await response.json();
-    resultNumber.textContent = `Result: ${data.version}`;
+    resultNumber.textContent = `Result: ${data.result}`;
 
 });

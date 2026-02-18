@@ -34,15 +34,13 @@ app.add_middleware(
 def health():
     return {"status": "ok"}
 
-'''
 @app.post("/square")
 def square(number: Num):
     result = number.number ** 2
     cur = conn.cursor()
-    cur.execute("INSERT INTO squares (squared) VALUES (%s);", (result,))
+    cur.execute("INSERT INTO squares (number) VALUES (%s);", (result,))
     conn.commit()
     return {"result": result}
-''' 
 
 @app.get("/db_test")
 def db_test():
@@ -50,10 +48,8 @@ def db_test():
     cur.execute("SELECT version();")
     return {"version": cur.fetchone()}
 
-'''
 @app.get("/last_squares")
 def last_squares():
     cur = conn.cursor()
-    cur.execute("SELECT squared FROM squares ORDER BY id DESC LIMIT 5;")
+    cur.execute("SELECT number FROM squares ORDER BY id DESC LIMIT 5;")
     return {"result": [row[0] for row in cur.fetchall()]}
-'''
