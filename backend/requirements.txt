@@ -1,5 +1,4 @@
 fastapi
 uvicorn
 pydantic
-mysql-connector-python
-dotenv
+psycopg2

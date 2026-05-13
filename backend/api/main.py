@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-import mysql.connector
+import psycopg2
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import os
@@ -7,21 +7,15 @@ from dotenv import load_dotenv
 import datetime as dt
 import uvicorn
 load_dotenv()  # Load environment variables from .env file
-db_host = os.environ.get('DB_HOST', 'localhost')  # Use a default value if the environment variable is not set
-db_user = os.environ.get('DB_USER', 'root')  # Use a default value if the environment variable is not set
-db_password = os.environ.get('DB_PASSWORD', 'default_password')  # Use a default value if the environment variable is not set
-db_name = os.environ.get('DB_NAME', 'booking')  # Use a default value if the environment variable is not set
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 origins = [
     "http://127.0.0.1:5500",
     "https://mjpick86.github.io",
 ]
 
-conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password=db_password,
-    database="booking"
+conn = psycopg2.connector.connect(
+    host=DATABASE_URL
 )
 
 class Num(BaseModel):
