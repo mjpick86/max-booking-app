@@ -14,7 +14,7 @@ origins = [
     "https://mjpick86.github.io",
 ]
 
-conn = psycopg2.connector.connect(
+conn = psycopg2.connect(
     host=DATABASE_URL
 )
 
