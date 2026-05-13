@@ -14,9 +14,7 @@ origins = [
     "https://mjpick86.github.io",
 ]
 
-conn = psycopg2.connect(
-    host=DATABASE_URL
-)
+conn = psycopg2.connect(DATABASE_URL)
 
 class Num(BaseModel):
     number: int
