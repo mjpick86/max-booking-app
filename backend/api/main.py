@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import psycopg2
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,6 +39,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Path to the favicon.ico file
+favicon_path = os.path.join(os.path.dirname(__file__), "static", "favicon.ico")
+
+# Mount the "static" directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
 
 def is_valid_date(date_str):
     try:
