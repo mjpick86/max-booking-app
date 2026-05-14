@@ -80,7 +80,6 @@ def health():
 @app.get("/all_dates")
 def all_dates():
     cur = conn.cursor()
-    cur.execute("DELETE FROM bookings WHERE date < CURDATE();")
     cur.execute("SELECT date FROM bookings;")
     return {"dates": [date[0] for date in cur.fetchall()]}
 
