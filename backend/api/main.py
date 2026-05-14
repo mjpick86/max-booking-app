@@ -7,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import datetime as dt
-import uvicorn
 load_dotenv()  # Load environment variables from .env file
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -74,7 +73,7 @@ def is_valid_dates(start_str, end_str):
         if start_date <= date < end_date: return False
     return True
 
-@app.get("/health")
+@app.get("/")
 def health():
     return {"status": "ok"}
 
