@@ -6,7 +6,7 @@ window.onload = async function() {
 }
 
 async function fetchUnavailableDates() {
-    const response = await fetch('http://localhost:8000/all_dates');
+    const response = await fetch('https://max-booking-app.vercel.app/all_dates');
     const data = await response.json();
     unavailableDates = data.dates;
 }
@@ -102,7 +102,7 @@ form.addEventListener('submit', async (e) => {
     const checkOutDate = form.elements['checkOutInput'].value;
     const comments = form.elements['commentsInput'].value;
 
-    const response = await fetch('http://localhost:8000/place_booking_range', {
+    const response = await fetch('https://max-booking-app.vercel.app/place_booking_range', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
