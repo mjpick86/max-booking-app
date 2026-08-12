@@ -114,6 +114,10 @@ form.addEventListener('submit', async (e) => {
         alert("Your booking has successfully been placed!");
         form.reset();
         fetchUnavailableDates();
+    } else if (data["message"] == "Email failed") {
+        alert("Your booking was successfully processed, however the confirmation email did not send. Please contact Max directly.");
+        form.reset();
+        fetchUnavailableDates();
     } else {
         alert("An error occurred when processing your booking. Please try again.");
     }

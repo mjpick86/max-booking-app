@@ -7,8 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import datetime as dt
+import resend
+
 load_dotenv()  # Load environment variables from .env file
 DATABASE_URL = os.getenv("DATABASE_URL")
+resend.api_key = os.getenv("RESEND_API_KEY")
+EMAIL = os.getenv("EMAIL")
 
 origins = [
     "http://127.0.0.1:5500",
@@ -90,6 +94,16 @@ def place_booking(booking: Booking):
     cur = conn.cursor()
     cur.execute("INSERT INTO bookings (name, date, comments) VALUES (%s, %s, %s);", (booking.name, booking.date, booking.comments))
     conn.commit()
+    try:
+        r = resend.Emails.send({
+        "from": EMAIL,
+        "to": EMAIL,
+        "subject": "New Booking Placed",
+        "html": f"<p><strong>{booking.name}</strong> has placed a booking for <strong>{booking.date}</strong>, stating {booking.comments}</p>"
+        })
+    except:
+        return {"message": "Email failed"} 
+
     return {"message": "Booking placed successfully"}
 
 @app.post("/place_booking_range")
@@ -104,6 +118,15 @@ def place_booking_range(booking_range: BookingRange):
         cur.execute("INSERT INTO bookings (name, date, comments) VALUES (%s, %s, %s);", (booking_range.name, start_date.strftime("%Y-%m-%d"), booking_range.comments))
         start_date += delta
     conn.commit()
+    try:
+        r = resend.Emails.send({
+        "from": EMAIL,
+        "to": EMAIL,
+        "subject": "New Booking Placed",
+        "html": f"<p><strong>{booking_range.name}</strong> has placed a booking from <strong>{booking_range.start_date}</strong> to <strong>{booking_range.end_date}</strong>, stating {booking_range.comments}</p>"
+        })
+    except:
+        return {"message": "Email failed"} 
     return {"message": "Booking placed successfully"}
 
 @app.get("/db_test")
