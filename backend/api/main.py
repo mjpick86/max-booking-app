@@ -96,7 +96,7 @@ def place_booking(booking: Booking):
     conn.commit()
     try:
         r = resend.Emails.send({
-        "from": EMAIL,
+        "from": "onboarding@resend.dev",
         "to": EMAIL,
         "subject": "New Booking Placed",
         "html": f"<p><strong>{booking.name}</strong> has placed a booking for <strong>{booking.date}</strong>, stating {booking.comments}</p>"
@@ -120,7 +120,7 @@ def place_booking_range(booking_range: BookingRange):
     conn.commit()
     try:
         r = resend.Emails.send({
-        "from": EMAIL,
+        "from": "onboarding@resend.dev",
         "to": EMAIL,
         "subject": "New Booking Placed",
         "html": f"<p><strong>{booking_range.name}</strong> has placed a booking from <strong>{booking_range.start_date}</strong> to <strong>{booking_range.end_date}</strong>, stating {booking_range.comments}</p>"
